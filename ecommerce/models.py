@@ -32,35 +32,3 @@ class Product(Base):
     price = Column(Float, nullable=False)
     cart_items = relationship('CartItem', back_populates='product')
 
-class CartItem(Base):
-    _tablename_ = 'cart_items'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
-    user = relationship('User', back_populates='cart_items')
-    product = relationship('Product', back_populates='cart_items')
-
-class Order(Base):
-    _tablename_ = 'orders'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    total = Column(Float, nullable=False)
-    status = Column(Enum(OrderStatus), default=OrderStatus.PENDING, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    user = relationship('User', back_populates='orders')
-    order_items = relationship('OrderItem', back_populates='order')
-
-class OrderItem(Base):
-    _tablename_ = 'order_items'
-    id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
-    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
-    quantity = Column(Integer, nullable=False)
-    unit_price = Column(Float, nullable=False)
-    order = relationship('Order', back_populates='order_items')
-    product = relationship('Product')
-
-# Database setup
-engine = create_engine('sqlite:///database.db')
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
