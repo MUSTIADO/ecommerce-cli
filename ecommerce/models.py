@@ -40,3 +40,13 @@ class CartItem(Base):
     user = relationship('User', back_populates='cart_items')
     product = relationship('Product', back_populates='cart_items')
 
+class Order(Base):
+    _tablename_ = 'orders'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    total = Column(Float, nullable=False)
+    status = Column(Enum(OrderStatus), default=OrderStatus.PENDING, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    user = relationship('User', back_populates='orders')
+    order_items = relationship('OrderItem', back_populates='order')
+
