@@ -50,3 +50,12 @@ class Order(Base):
     user = relationship('User', back_populates='orders')
     order_items = relationship('OrderItem', back_populates='order')
 
+class OrderItem(Base):
+    _tablename_ = 'order_items'
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('orders.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    unit_price = Column(Float, nullable=False)
+    order = relationship('Order', back_populates='order_items')
+    product = relationship('Product')
