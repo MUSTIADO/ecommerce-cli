@@ -59,3 +59,8 @@ class OrderItem(Base):
     unit_price = Column(Float, nullable=False)
     order = relationship('Order', back_populates='order_items')
     product = relationship('Product')
+
+# Database setup
+engine = create_engine('sqlite:///database.db')
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
