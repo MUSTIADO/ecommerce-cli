@@ -32,3 +32,11 @@ class Product(Base):
     price = Column(Float, nullable=False)
     cart_items = relationship('CartItem', back_populates='product')
 
+class CartItem(Base):
+    _tablename_ = 'cart_items'
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    product_id = Column(Integer, ForeignKey('products.id'), nullable=False)
+    user = relationship('User', back_populates='cart_items')
+    product = relationship('Product', back_populates='cart_items')
+
