@@ -1,113 +1,110 @@
-import logging
-from sqlalchemy.orm import Session
-from models import User, Product, CartItem, UserRole, Session as DBSession
-from auth import register, login, logout, get_current_user  # Importing from auth.py
-from orders import place_order, view_orders, cancel_order, update_order_status  # Importing from orders.py
+from utils import *
 
-# Set up logging
-logging.basicConfig(filename='ecommerce.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-# Restrict certain actions to admins
-def admin_required(func):
-    def wrapper(*args, **kwargs):
+# Main program
+def main():
+    while True:
         user = get_current_user()
-        if not user or user.role != UserRole.ADMIN:
-            print("Admin access required.")
-            return
-        return func(*args, **kwargs)
-    return wrapper
 
-# Add new product (admin only)
-@admin_required
-def add_product(name, price):
-    try:
-        with DBSession() as session:
-            product = Product(name=name, price=price)
-            session.add(product)
-            session.commit()
-            print(f"Product '{name}' added successfully with price ${price}.")
-            logging.info(f"Product added: {name}, Price: ${price}")
-    except Exception as e:
-        print("An error occurred while adding the product.")
-        logging.error(f"Error adding product: {e}")
+        if not user:
+            print("\nChoose an action:")
+            print("1. Register")
+            print("2. Login")
+            print("3. Exit")
+            choice = input("Enter your choice: ")
 
-# List users (admin only)
-@admin_required
-def list_users():
-    try:
-        with DBSession() as session:
-            users = session.query(User).all()
-            for user in users:
-                print(f"User ID: {user.id}, Username: {user.username}, Role: {user.role.value}")
-    except Exception as e:
-        print("An error occurred while listing users.")
-        logging.error(f"Error listing users: {e}")
-
-# Delete user (admin only)
-@admin_required
-def delete_user(user_id):
-    try:
-        with DBSession() as session:
-            user = session.query(User).filter_by(id=user_id).first()
-            if user:
-                session.delete(user)
-                session.commit()
-                logging.info(f"User with ID {user_id} deleted.")
-                return True
+            if choice == '1':
+                username = input("Enter username: ")
+                password = input("Enter password: ")
+                role_input = input("Enter role (user/admin): ").strip().lower()
+                role = UserRole.ADMIN if role_input == "admin" else UserRole.USER
+                register(username, password, role)
+            elif choice == '2':
+                username = input("Enter username: ")
+                password = input("Enter password: ")
+                login(username, password)
+            elif choice == '3':
+                print("Exiting program. Goodbye!")
+                break
             else:
-                logging.warning(f"User with ID {user_id} not found.")
-                return False
-    except Exception as e:
-        logging.error(f"Error deleting user with ID {user_id}: {e}", exc_info=True)
-        return False
+                print("Invalid choice. Please choose again.")
+        else:
+            print("\nChoose an action:")
+            print("1. Logout")
+            print("2. List Users (Admin Only)")
+            print("3. Add Product (Admin Only)")
+            print("4. List Products")
+            print("5. Add to Cart")
+            print("6. Empty Cart")
+            print("7. View Cart")
+            print("8. Place Order")
+            print("9. View Orders")
+            print("10. Cancel Order")
+            print("11. Update Order Status (Admin Only)")
+            print("12. Delete User (Admin Only)")
+            print("13. Exit")
+            
+            choice = input("Enter your choice: ")
 
-# List products
-def list_products():
-    try:
-        with DBSession() as session:
-            products = session.query(Product).all()
-            for product in products:
-                print(f"Product ID: {product.id}, Name: {product.name}, Price: ${product.price}")
-    except Exception as e:
-        print("An error occurred while listing products.")
-        logging.error(f"Error listing products: {e}")
+            if choice == '1':
+                logout()
+            elif choice == '2':
+                if user.role == UserRole.ADMIN:
+                    list_users()
+                else:
+                    print("Admin access required.")
+            elif choice == '3':
+                if user.role == UserRole.ADMIN:
+                    name = input("Enter product name: ")
+                    price = float(input("Enter product price: "))
+                    add_product(name, price)
+                else:
+                    print("Admin access required.")
+            elif choice == '4':
+                list_products()
+            elif choice == '5':
+                product_id = int(input("Enter product ID to add to cart: "))
+                add_to_cart(product_id)
+            elif choice == '6':
+                empty_cart()
+            elif choice == '7':
+                view_cart()
+            elif choice == '8':
+                place_order()
+            elif choice == '9':
+                view_orders()
+            elif choice == '10':
+                order_id = int(input("Enter order ID to cancel: "))
+                cancel_order(order_id)
+            elif choice == '11':
+                if user.role == UserRole.ADMIN:
+                    order_id = int(input("Enter order ID to update status: "))
+                    status_input = input("Enter new status (pending/processed/delivered/canceled): ").strip().lower()
+                    status = {
+                        'pending': OrderStatus.PENDING,
+                        'processed': OrderStatus.PROCESSED,
+                        'delivered': OrderStatus.DELIVERED,
+                        'canceled': OrderStatus.CANCELED
+                    }.get(status_input)
 
-# Add to cart
-def add_to_cart(product_id):
-    user = get_current_user()
-    if not user:
-        print("Please login first.")
-        return
-    try:
-        with DBSession() as session:
-            product = session.query(Product).filter_by(id=product_id).first()
-            if not product:
-                print("Product not found.")
-                return
-            cart_item = CartItem(user_id=user.id, product_id=product.id)
-            session.add(cart_item)
-            session.commit()
-            print(f"Product '{product.name}' added to cart.")
-            logging.info(f"Product added to cart: {product.name}, User: {user.username}")
-    except Exception as e:
-        print("An error occurred while adding to cart.")
-        logging.error(f"Error adding to cart: {e}")
+                    if status:
+                        update_order_status(order_id, status)
+                    else:
+                        print("Invalid status input.")
+                else:
+                    print("Admin access required.")
+            elif choice == '12':
+                if user.role == UserRole.ADMIN:
+                    username = input("Enter username to delete: ")
+                    delete_user(username)
+                else:
+                    print("Admin access required.")
+            elif choice == '13':
+                print("Exiting program. Goodbye!")
+                break
+            else:
+                print("Invalid choice. Please choose again.")
 
-# View cart
-def view_cart():
-    user = get_current_user()
-    if not user:
-        print("Please login first.")
-        return
-    try:
-        with DBSession() as session:
-            cart_items = session.query(CartItem).filter_by(user_id=user.id).all()
-            if not cart_items:
-                print("Your cart is empty.")
-                return
-            for item in cart_items:
-                product = session.query(Product).filter_by(id=item.product_id).first()
-                print(f"Product ID: {product.id}, Name: {product.name}, Price: ${product.price}")
-    except Exception as e:
-        print("An error occurred while viewing the cart.")
-        logging.error(f"Error viewing cart: {e}")
+
+
+if __name__ == "__main__":
+    main()
