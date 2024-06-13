@@ -4,7 +4,7 @@
 This project is a command-line interface (CLI) application for managing an e-commerce platform. It allows users to perform various actions such as registering, logging in, listing products, adding products to cart, placing orders, and more, all from the terminal.
 
 ## Project Structure
-ecommerce-cli
+```ecommerce-cli
 ├── ecommerce
 │   ├── _init_.py
 │   ├── main.py
@@ -16,7 +16,7 @@ ecommerce-cli
 ├── Pipfile
 ├── README.md
 └── .gitignore
-
+```
 ## Features
 - User Authentication: Users can register with a username and password, and then log in and log out securely.
 - Product Management: Products can be listed, and users can view details and add them to their cart.
