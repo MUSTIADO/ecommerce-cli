@@ -6,16 +6,15 @@ This project is a command-line interface (CLI) application for managing an e-com
 ## Project Structure
 ```ecommerce-cli
 ├── ecommerce
-│   ├── _init_.py
+│   ├── database.py
+│   ├── log.py
 │   ├── main.py
 │   ├── models.py
-│   └── utils
-│       ├── _init_.py
-│       ├── db.py
-│       └── logger.py
+│   ├── utils.py
+│
 ├── Pipfile
-├── README.md
-└── .gitignore
+├── Pipfile.lock
+└── README.md
 ```
 
 ## Features
@@ -59,7 +58,7 @@ Contributions are welcome! If you find a bug or have a feature request, please o
 ## License 
 This project was licensed by :
 - Ann Achoki
-- Abdifatar Farah
+- Abdifatah Farah
 - Mustafa Adan
 - Virginia Gichira
 - Wilson Gitonga
