@@ -4,6 +4,7 @@ from models import User, Product, CartItem, Order, OrderItem, UserRole, OrderSta
 from datetime import datetime
 import logging
 
+
 # Set up logging
 logging.basicConfig(filename='ecommerce.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -233,7 +234,7 @@ def list_products():
                 return
             print("List of Products:")
             for product in products:
-                print(f"ID: {product.id}, Name: {product.name}, Price: ${product.price}")
+                print(f"ID: {product.id}, Name: {product.name}, Price: ksh.{product.price}")
     except Exception as e:
         print("An error occurred while listing products.")
         logging.error(f"Error listing products: {e}")
@@ -275,7 +276,7 @@ def view_cart():
             print("Cart Items:")
             for cart_item in cart_items:
                 product = session.query(Product).filter_by(id=cart_item.product_id).first()
-                print(f"Product ID: {product.id}, Name: {product.name}, Price: ${product.price}")
+                print(f"Product ID: {product.id}, Name: {product.name}, Price: ksh.{product.price}")
     except Exception as e:
         print("An error occurred while viewing cart.")
         logging.error(f"Error viewing cart: {e}")

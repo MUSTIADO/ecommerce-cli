@@ -1,0 +1,55 @@
+2024-06-13 07:03:30,369 - ERROR - Error getting current user: [Errno 2] No such file or directory: 'session.txt'
+2024-06-13 07:03:32,104 - ERROR - Error getting current user: [Errno 2] No such file or directory: 'session.txt'
+2024-06-13 07:04:07,521 - INFO - User registered: wilson as Admin
+2024-06-13 07:04:07,521 - ERROR - Error getting current user: [Errno 2] No such file or directory: 'session.txt'
+2024-06-13 07:04:25,388 - INFO - User logged in: wilson
+2024-06-13 07:23:07,152 - INFO - User logged out.
+2024-06-13 07:23:29,061 - INFO - User registered: astra as User
+2024-06-13 07:23:41,740 - INFO - User logged in: astra
+2024-06-13 07:23:51,384 - INFO - User logged out.
+2024-06-13 07:23:57,403 - INFO - User logged in: wilson
+2024-06-13 07:24:17,985 - INFO - Product added: hp envy, Price: $80000.0
+2024-06-13 07:24:27,650 - INFO - Product added: hp omen, Price: $140000.0
+2024-06-13 07:26:47,189 - INFO - User logged out.
+2024-06-13 07:26:53,548 - INFO - User logged in: astra
+2024-06-13 07:27:10,195 - INFO - User logged out.
+2024-06-13 07:27:32,383 - INFO - User logged in: astra
+2024-06-13 07:27:54,324 - INFO - Product added to cart: hp envy, User: astra
+2024-06-13 07:27:58,405 - INFO - Cart emptied for user: astra
+2024-06-13 07:28:08,015 - INFO - Product added to cart: hp envy, User: astra
+2024-06-13 07:28:13,446 - INFO - Order placed: 1, User: astra
+2024-06-13 07:28:16,267 - INFO - User logged out.
+2024-06-13 07:28:33,403 - INFO - User logged in: wilson
+2024-06-13 07:42:40,927 - INFO - Order status updated: 1, Status: Processed
+2024-06-13 07:43:15,165 - INFO - User logged out.
+2024-06-13 07:43:25,639 - INFO - User logged in: astra
+2024-06-13 07:43:40,834 - INFO - Cart emptied for user: astra
+2024-06-13 07:43:44,391 - INFO - User logged out.
+2024-06-13 07:43:50,584 - INFO - User logged in: wilson
+2024-06-13 07:43:57,606 - INFO - User deleted: astra
+2024-06-13 08:09:36,011 - INFO - User logged out.
+2024-06-13 08:10:03,922 - INFO - User registered: astra as User
+2024-06-13 08:10:12,793 - INFO - User logged in: astra
+2024-06-13 08:12:54,281 - INFO - Product added to cart: hp omen, User: astra
+2024-06-13 08:15:02,617 - INFO - User logged out.
+2024-06-13 08:19:14,956 - INFO - User logged in: wilson
+2024-06-13 08:19:29,015 - INFO - User logged out.
+2024-06-13 08:19:47,653 - INFO - User logged in: wilson
+2024-06-13 08:34:08,858 - INFO - User logged out.
+2024-06-13 08:34:53,924 - INFO - User logged in: astra
+2024-06-13 08:35:09,693 - INFO - User logged out.
+2024-06-13 08:35:22,335 - INFO - User logged in: wilson
+2024-06-13 08:37:54,113 - INFO - Product added: iphone 15, Price: $200000.0
+2024-06-13 08:38:15,058 - INFO - User logged out.
+2024-06-13 08:38:40,542 - INFO - User logged in: astra
+2024-06-13 08:39:13,949 - INFO - Product added to cart: hp envy, User: astra
+2024-06-13 08:39:22,146 - INFO - Product added to cart: hp omen, User: astra
+2024-06-13 08:39:35,528 - INFO - Order placed: 1, User: astra
+2024-06-13 08:40:00,933 - INFO - User logged out.
+2024-06-13 08:40:05,676 - INFO - User registered:  as User
+2024-06-13 08:40:28,015 - INFO - User logged in: wilson
+2024-06-13 08:41:14,845 - INFO - Order status updated: 1, Status: Processed
+2024-06-13 08:41:34,701 - INFO - User logged out.
+2024-06-13 08:41:50,474 - INFO - User logged in: wilson
+2024-06-13 08:41:52,873 - INFO - User logged out.
+2024-06-13 08:42:03,688 - INFO - User logged in: astra
